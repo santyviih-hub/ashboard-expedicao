@@ -1,4 +1,4 @@
-const API_URL = "COLE_AQUI_SUA_URL_DO_APPS_SCRIPT";
+const API_URL = "https://script.google.com/a/macros/shopee.com/s/AKfycbx_nrfc7bAyt2fFJR9kLygrJPe4J0LaVFxS9f1stNP3aokMwNrNHkiMEPozocCQcV6C/exec";
 
 async function carregarDados() {
   try {
