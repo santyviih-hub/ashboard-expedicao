@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Painel de Expedição</title>
+
+<link rel="stylesheet" href="style.css">
+
+<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+<header>
+    <h1>Painel de Expedição</h1>
+</header>
+
+<section class="cards">
+
+    <div class="card">
+        <h3>Total AT's</h3>
+        <span id="totalTasks">0</span>
+    </div>
+
+    <div class="card green">
+        <h3>Expedidas</h3>
+        <span id="expedidas">0</span>
+    </div>
+
+    <div class="card yellow">
+        <h3>Em Piso</h3>
+        <span id="empiso">0</span>
+    </div>
+
+    <div class="card blue">
+        <h3>Estações</h3>
+        <span id="stations">0</span>
+    </div>
+
+</section>
+
+<section class="cards">
+
+    <div class="card">
+        <h3>Pedidos</h3>
+        <span id="orders">0</span>
+    </div>
+
+    <div class="card">
+        <h3>Motoristas</h3>
+        <span id="drivers">0</span>
+    </div>
+
+    <div class="card">
+        <h3>Veículos</h3>
+        <span id="vehicles">0</span>
+    </div>
+
+</section>
+
+<div class="dashboard">
+
+    <div class="table-box">
+        <table>
+            <thead>
+                <tr>
+                    <th>Task ID</th>
+                    <th>Station</th>
+                    <th>Driver</th>
+                    <th>Vehicle</th>
+                    <th>Orders</th>
+                    <th>Delivery Date</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody"></tbody>
+        </table>
+    </div>
+
+    <div class="chart-box">
+        <canvas id="stationChart"></canvas>
+    </div>
+
+</div>
+
+<script src="app.js"></script>
+
+</body>
+</html>
