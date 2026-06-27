@@ -1,82 +1,32 @@
-Papa.parse("tasks.csv", {
-    download: true,
-    header: true,
+const API_URL = "COLE_AQUI_SUA_URL_DO_APPS_SCRIPT";
 
-    complete: function(results) {
+async function carregarDados() {
+  try {
+    const res = await fetch(API_URL);
+    const dados = await res.json();
 
-        const data = results.data.filter(r => r["Task ID"]);
+    console.log("Dados recebidos:", dados);
 
-        document.getElementById("totalTasks").innerText = data.length;
+    montarDashboard(dados);
 
-        const expedidas = data.filter(x =>
-            x["Driver ID"] && x["Driver ID"] !== ""
-        ).length;
+  } catch (error) {
+    console.error("Erro ao carregar dados:", error);
+  }
+}
 
-        document.getElementById("expedidas").innerText = expedidas;
-        document.getElementById("empiso").innerText = data.length - expedidas;
+function montarDashboard(dados) {
+  console.log("Total de registros:", dados.length);
 
-        const stations = [...new Set(data.map(x => x["Station name"]))];
-        document.getElementById("stations").innerText = stations.length;
+  const statusCount = {};
 
-        const drivers = [...new Set(
-            data.map(x => x["Driver name"]).filter(Boolean)
-        )];
+  dados.forEach(item => {
+    const status = item.STATUS;
+    statusCount[status] = (statusCount[status] || 0) + 1;
+  });
 
-        document.getElementById("drivers").innerText = drivers.length;
+  console.log("Status:", statusCount);
+}
 
-        const vehicles = [...new Set(
-            data.map(x => x["Vehicle Type"]).filter(Boolean)
-        )];
+carregarDados();
 
-        document.getElementById("vehicles").innerText = vehicles.length;
-
-        let totalOrders = 0;
-
-        data.forEach(row => {
-            totalOrders += Number(row["Number of order"]) || 0;
-        });
-
-        document.getElementById("orders").innerText =
-            totalOrders.toLocaleString("pt-BR");
-
-        const tbody = document.getElementById("tableBody");
-
-        data.slice(0, 300).forEach(row => {
-
-            tbody.innerHTML += `
-            <tr>
-                <td>${row["Task ID"] || ""}</td>
-                <td>${row["Station name"] || ""}</td>
-                <td>${row["Driver name"] || ""}</td>
-                <td>${row["Vehicle Type"] || ""}</td>
-                <td>${row["Number of order"] || ""}</td>
-                <td>${row["Delivery Date"] || ""}</td>
-            </tr>`;
-        });
-
-        const stationCount = {};
-
-        data.forEach(row => {
-            const station = row["Station name"];
-
-            if (!station) return;
-
-            stationCount[station] =
-                (stationCount[station] || 0) + 1;
-        });
-
-        new Chart(
-            document.getElementById("stationChart"),
-            {
-                type: "bar",
-                data: {
-                    labels: Object.keys(stationCount),
-                    datasets: [{
-                        label: "AT's por Estação",
-                        data: Object.values(stationCount)
-                    }]
-                }
-            }
-        );
-    }
-});
+setInterval(carregarDados, 30000);
