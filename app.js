@@ -1,9 +1,14 @@
 function atualizarDashboard() {
 
+    console.log("BOTÃO FOI CLICADO");
+
     const texto = document.getElementById("dadosPlanilha").value;
 
-    if (!texto.trim()) {
-        alert("Cole os dados da planilha.");
+    console.log("TEXTO COLADO:");
+    console.log(texto);
+
+    if (!texto || !texto.trim()) {
+        alert("Cole os dados da planilha primeiro.");
         return;
     }
 
@@ -18,34 +23,40 @@ function atualizarDashboard() {
     const drivers = new Set();
     const agencias = new Set();
 
-    // Ignora a primeira linha (cabeçalho)
     for (let i = 1; i < linhas.length; i++) {
 
         const c = linhas[i].split("\t");
-        console.log(c);
 
-        if (c.length < 19) continue;
+        console.log("LINHA:", c);
+
+        if (!c || c.length < 6) continue;
 
         totalATs++;
 
-        cidades.add(c[3]);
-        agencias.add(c[13]);
+        const at = c[2] || "";
+        const corredor = c[3] || "";
+        const cidade = c[4] || "";
+        const bairro = c[5] || "";
+        const agencia = c[13] || "";
+        const driver = c[15] || "";
+        const status = c[16] || "";
+        const modal = c[17] || "";
 
-        if (c[15]) {
-            drivers.add(c[15]);
-        }
+        cidades.add(cidade);
+        drivers.add(driver);
+        agencias.add(agencia);
 
         tabela.innerHTML += `
-        <tr>
-            <td>${c[2]}</td>
-            <td>${c[3]}</td>
-            <td>${c[4]}</td>
-            <td>${c[5]}</td>
-            <td>${c[13]}</td>
-            <td>${c[15]}</td>
-            <td>${c[16]}</td>
-            <td>${c[17]}</td>
-        </tr>
+            <tr>
+                <td>${at}</td>
+                <td>${corredor}</td>
+                <td>${cidade}</td>
+                <td>${bairro}</td>
+                <td>${agencia}</td>
+                <td>${driver}</td>
+                <td>${status}</td>
+                <td>${modal}</td>
+            </tr>
         `;
     }
 
