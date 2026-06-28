@@ -3,149 +3,179 @@
 
 <head>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Dashboard Expedição</title>
+    <title>Dashboard Expedição</title>
 
-<link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css">
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 </head>
 
 <body>
 
-<header>
+    <!-- HEADER -->
 
-<h1>🚚 Dashboard Expedição</h1>
+    <header>
 
-</header>
+        <h1>🚚 Dashboard de Expedição</h1>
 
-<div class="container">
+    </header>
 
-<div class="cards">
+    <div class="container">
 
-<div class="card orange">
-<h3>Total AT</h3>
-<span id="totalTasks">0</span>
-</div>
+        <!-- CARDS -->
 
-<div class="card green">
-<h3>Expedidas</h3>
-<span id="expedidas">0</span>
-</div>
+        <section class="cards">
 
-<div class="card yellow">
-<h3>Em Piso</h3>
-<span id="empiso">0</span>
-</div>
+            <div class="card orange">
+                <h3>Total AT</h3>
+                <span id="totalTasks">0</span>
+            </div>
 
-<div class="card blue">
-<h3>Drivers</h3>
-<span id="drivers">0</span>
-</div>
+            <div class="card green">
+                <h3>Expedidas</h3>
+                <span id="expedidas">0</span>
+            </div>
 
-<div class="card purple">
-<h3>Cidades</h3>
-<span id="stations">0</span>
-</div>
+            <div class="card yellow">
+                <h3>Em Piso</h3>
+                <span id="empiso">0</span>
+            </div>
 
-<div class="card pink">
-<h3>Agências</h3>
-<span id="vehicles">0</span>
-</div>
+            <div class="card blue">
+                <h3>Drivers</h3>
+                <span id="drivers">0</span>
+            </div>
 
-<div class="card red">
-<h3>SPR</h3>
-<span id="spr">0</span>
-</div>
+            <div class="card purple">
+                <h3>Cidades</h3>
+                <span id="stations">0</span>
+            </div>
 
-<div class="card cyan">
-<h3>Perda SPR</h3>
-<span id="perda">0</span>
-</div>
+            <div class="card pink">
+                <h3>Agências</h3>
+                <span id="vehicles">0</span>
+            </div>
 
-</div>
+            <div class="card red">
+                <h3>SPR</h3>
+                <span id="spr">0</span>
+            </div>
 
-<div class="importador">
+            <div class="card cyan">
+                <h3>Perda SPR</h3>
+                <span id="perda">0</span>
+            </div>
 
-<h2>Importar Dados</h2>
+        </section>
 
-<textarea
-id="dadosPlanilha"
-placeholder="Cole aqui os dados copiados da planilha">
-</textarea>
+        <!-- IMPORTAÇÃO -->
 
-<button onclick="atualizarDashboard()">
+        <section class="importador">
 
-Atualizar Dashboard
+            <h2>📥 Importar Dados</h2>
 
-</button>
+            <textarea
+                id="dadosPlanilha"
+                placeholder="Cole aqui os dados copiados da planilha"></textarea>
 
-</div>
+            <button onclick="atualizarDashboard()">
+                Atualizar Dashboard
+            </button>
 
-<div id="filtros" class="filtros"></div>
+        </section>
 
-<div class="painelResumo">
+        <!-- PESQUISA -->
 
-<h2 id="tituloResumo">
+        <section class="pesquisa">
 
-Resumo
+            <input
+                type="text"
+                id="pesquisa"
+                placeholder="🔍 Pesquisar AT, Driver, Cidade, Bairro..."
+                onkeyup="pesquisar()">
 
-</h2>
+        </section>
 
-<div id="resumo"></div>
+        <!-- BOTÕES DOS FILTROS -->
 
-</div>
+        <section>
 
-<div class="grafico">
+            <h2>📌 Resumos</h2>
 
-<canvas id="graficoResumo"></canvas>
+            <div id="filtros" class="filtros"></div>
 
-</div>
+        </section>
 
-<div class="tabela">
+        <!-- RESUMO -->
 
-<table>
+        <section class="painelResumo">
 
-<thead>
+            <h2 id="tituloResumo">
 
-<tr>
+                Clique em um botão acima
 
-<th>Janela</th>
-<th>Status</th>
-<th>AT</th>
-<th>Corredor</th>
-<th>Cidade</th>
-<th>Bairro</th>
-<th>Modal Routing</th>
-<th>SPR Routing</th>
-<th>SPR</th>
-<th>Perda SPR</th>
-<th>Data</th>
-<th>ID Driver</th>
-<th>Driver</th>
-<th>Status Presença</th>
-<th>Modal Driver</th>
-<th>Telefone</th>
-<th>Status Driver</th>
+            </h2>
 
-</tr>
+            <div id="resumo"></div>
 
-</thead>
+        </section>
 
-<tbody id="tableBody">
+        <!-- GRÁFICO -->
 
-</tbody>
+        <section class="grafico">
 
-</table>
+            <canvas id="graficoResumo"></canvas>
 
-</div>
+        </section>
 
-</div>
+        <!-- TABELA -->
 
-<script src="app.js"></script>
+        <section class="tabela">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>JANELA</th>
+                        <th>STATUS</th>
+                        <th>AT</th>
+                        <th>CORREDOR</th>
+                        <th>CIDADE</th>
+                        <th>BAIRROS</th>
+                        <th>MODAL ROUTING</th>
+                        <th>SPR ROUTING</th>
+                        <th>SPR</th>
+                        <th>PERDA SPR</th>
+                        <th>DATA ROTA</th>
+                        <th>ID DRIVER</th>
+                        <th>DRIVER NAME</th>
+                        <th>STATUS PRESENÇA</th>
+                        <th>MODAL DRIVER</th>
+                        <th>PHONE</th>
+                        <th>STATUS DRIVER</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="tableBody">
+
+                </tbody>
+
+            </table>
+
+        </section>
+
+    </div>
+
+    <script src="app.js"></script>
 
 </body>
 
