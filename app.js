@@ -140,8 +140,72 @@ inicializarSistema();
 
     }
 
-    dadosFiltrados=[...dados];
+function atualizarDashboard(){
 
+    const texto = document
+        .getElementById("dadosPlanilha")
+        .value
+        .trim();
+
+    if(texto === ""){
+        alert("Cole os dados da planilha.");
+        return;
+    }
+
+    dados = [];
+
+    const linhas = texto.split("\n");
+
+    for(let i = 1; i < linhas.length; i++){
+
+        const c = linhas[i].split("\t");
+
+        if(c.length < 19) continue;
+
+        dados.push({
+
+            janela: c[0],
+            status: c[1],
+            at: c[2],
+            corredor: c[3],
+            cidade: c[4],
+            bairro: c[5],
+            modalRouting: c[6],
+            sprRouting: c[7],
+            spr: c[8],
+            perdaSPR: c[9],
+            dataRota: c[10],
+            janela2: c[11],
+            janela3: c[12],
+            idDriver: c[13],
+            driver: c[14],
+            presenca: c[15],
+            modalDriver: c[16],
+            phone: c[17],
+            statusDriver: c[18]
+
+        });
+
+    }
+
+    // =========================
+    // ESTADO DO SISTEMA
+    // =========================
+
+    dadosFiltrados = [...dados];
+
+    // =========================
+    // ATUALIZAÇÃO DOS MÓDULOS
+    // =========================
+
+    atualizarCards(dados);
+
+    setDadosTabela(dados);
+
+    criarBotoes();
+
+    montarTabela(dadosFiltrados);
+}
     atualizarCards();
 
     criarBotoes();
