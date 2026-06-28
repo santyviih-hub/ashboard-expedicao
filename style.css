@@ -4,13 +4,17 @@ body{
     background:#f3f4f6;
 }
 
+/* HEADER estilo Shopee */
 header{
-    background:#111827;
+    background:#ff6a00;
     color:white;
     text-align:center;
     padding:15px;
+    font-weight:bold;
+    letter-spacing:1px;
 }
 
+/* cards */
 .cards{
     display:flex;
     justify-content:center;
@@ -25,6 +29,7 @@ header{
     border-radius:10px;
     min-width:120px;
     text-align:center;
+    border-top:4px solid #ff6a00;
 }
 
 .card span{
@@ -32,10 +37,12 @@ header{
     font-weight:bold;
 }
 
-.green{border-left:4px solid green;}
-.yellow{border-left:4px solid orange;}
-.blue{border-left:4px solid blue;}
+/* cores agora no padrão Shopee */
+.green{border-left:4px solid #ff6a00;}
+.yellow{border-left:4px solid #ff9f1a;}
+.blue{border-left:4px solid #ff6a00;}
 
+/* importador */
 .importador{
     width:90%;
     margin:auto;
@@ -45,18 +52,27 @@ header{
 textarea{
     width:100%;
     height:150px;
+    border:1px solid #ff6a00;
+    border-radius:5px;
 }
 
+/* botão principal */
 button{
     padding:10px;
     margin-top:10px;
-    background:#111827;
+    background:#ff6a00;
     color:white;
     border:none;
     cursor:pointer;
     border-radius:5px;
+    font-weight:bold;
 }
 
+button:hover{
+    background:#e85f00;
+}
+
+/* filtros */
 .filtros{
     display:flex;
     flex-wrap:wrap;
@@ -66,14 +82,20 @@ button{
 }
 
 .filtros button{
-    background:#374151;
+    background:#ff6a00;
     color:white;
     border:none;
     padding:6px 10px;
     border-radius:5px;
     font-size:12px;
+    opacity:0.9;
 }
 
+.filtros button:hover{
+    opacity:1;
+}
+
+/* tabela */
 table{
     width:100%;
     border-collapse:collapse;
@@ -84,4 +106,9 @@ th,td{
     padding:8px;
     border:1px solid #ddd;
     font-size:12px;
+}
+
+th{
+    background:#ff6a00;
+    color:white;
 }
