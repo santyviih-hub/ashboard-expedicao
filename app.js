@@ -69,7 +69,9 @@ const MAPA = {
 // IMPORTAR PLANILHA
 // =====================================================
 
-function atualizarDashboard(){
+dadosFiltrados = [...dados];
+
+inicializarSistema();
 
     const texto=document
         .getElementById("dadosPlanilha")
