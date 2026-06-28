@@ -331,3 +331,16 @@ function limparFiltros(){
 <button onclick="limparFiltros()">
 🧹 Limpar Filtros
 </button>
+function inicializarSistema(){
+
+    atualizarCards(dados);
+
+    setDadosTabela(dados);
+
+    dadosFiltrados = [...dados];
+
+    criarBotoes();
+
+    montarTabela(dadosFiltrados);
+
+}
