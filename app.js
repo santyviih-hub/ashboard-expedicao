@@ -3,50 +3,41 @@ function atualizarDashboard() {
     const texto = document.getElementById("dadosPlanilha").value;
 
     if (!texto.trim()) {
-        alert("Cole os dados da planilha.");
+        alert("Cole os dados da planilha");
         return;
     }
 
-    const linhas = texto
-        .trim()
-        .split("\n")
-        .filter(l => l.trim().length > 0);
+    const linhas = texto.trim().split("\n");
 
     const tabela = document.getElementById("tableBody");
     tabela.innerHTML = "";
 
-    let totalATs = 0;
+    let total = 0;
 
     const cidades = new Set();
     const drivers = new Set();
     const agencias = new Set();
 
-    for (let i = 0; i < linhas.length; i++) {
+    for (let i = 1; i < linhas.length; i++) {
 
-        // 🔥 aqui resolve o problema REAL (tabs OU espaços múltiplos)
-        const c = linhas[i].split(/\t| {2,}/g);
+        const c = linhas[i].split("\t");
 
-        console.log("LINHA PROCESSADA:", c);
+        if (c.length < 18) continue;
 
-        if (c.length < 19) continue;
+        total++;
 
-        // pula cabeçalho automaticamente
-        if (c[2] === "AT") continue;
+        const at = c[2];
+        const corredor = c[3];
+        const cidade = c[4];
+        const bairro = c[5];
+        const agencia = c[13];
+        const driver = c[15];
+        const status = c[16];
+        const modal = c[17];
 
-        const at = c[2] || "";
-        const corredor = c[3] || "";
-        const cidade = c[4] || "";
-        const bairro = c[5] || "";
-        const agencia = c[13] || "";
-        const driver = c[15] || "";
-        const status = c[16] || "";
-        const modal = c[17] || "";
-
-        totalATs++;
-
-        if (cidade) cidades.add(cidade);
-        if (driver) drivers.add(driver);
-        if (agencia) agencias.add(agencia);
+        cidades.add(cidade);
+        drivers.add(driver);
+        agencias.add(agencia);
 
         tabela.innerHTML += `
             <tr>
@@ -62,12 +53,40 @@ function atualizarDashboard() {
         `;
     }
 
-    document.getElementById("totalTasks").textContent = totalATs;
+    document.getElementById("totalTasks").textContent = total;
     document.getElementById("stations").textContent = cidades.size;
     document.getElementById("drivers").textContent = drivers.size;
     document.getElementById("vehicles").textContent = agencias.size;
-    document.getElementById("orders").textContent = totalATs;
+    document.getElementById("orders").textContent = total;
 
-    document.getElementById("expedidas").textContent = totalATs;
+    document.getElementById("expedidas").textContent = total;
     document.getElementById("empiso").textContent = 0;
+
+    criarBotoes();
+}
+
+function criarBotoes() {
+
+    const nomes = [
+        "AT",
+        "CORREDOR",
+        "CIDADE",
+        "BAIRROS",
+        "AGENCIA",
+        "DRIVER NAME",
+        "STATUS PRESENÇA",
+        "MODAL DRIVER"
+    ];
+
+    const container = document.getElementById("filtros");
+
+    container.innerHTML = "";
+
+    nomes.forEach(n => {
+        container.innerHTML += `<button onclick="filtrar('${n}')">${n}</button>`;
+    });
+}
+
+function filtrar(coluna) {
+    alert("Filtro: " + coluna);
 }
