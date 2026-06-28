@@ -22,6 +22,7 @@ function atualizarDashboard() {
     for (let i = 1; i < linhas.length; i++) {
 
         const c = linhas[i].split("\t");
+        console.log(c);
 
         if (c.length < 19) continue;
 
