@@ -1,114 +1,192 @@
-body{
-    font-family:Arial;
+*{
     margin:0;
-    background:#f3f4f6;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
 }
 
-/* HEADER estilo Shopee */
+body{
+    background:#f4f6f9;
+}
+
 header{
     background:#ff6a00;
-    color:white;
+    color:#fff;
     text-align:center;
-    padding:15px;
-    font-weight:bold;
-    letter-spacing:1px;
+    padding:20px;
+    box-shadow:0 2px 8px rgba(0,0,0,.2);
 }
 
-/* cards */
+.container{
+    width:95%;
+    margin:auto;
+    padding:20px 0;
+}
+
+/* CARDS */
+
 .cards{
-    display:flex;
-    justify-content:center;
-    gap:10px;
-    flex-wrap:wrap;
-    margin:15px;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
+    gap:15px;
+    margin-bottom:25px;
 }
 
 .card{
-    background:white;
-    padding:15px;
-    border-radius:10px;
-    min-width:120px;
+    color:#fff;
+    border-radius:12px;
+    padding:20px;
     text-align:center;
-    border-top:4px solid #ff6a00;
+    transition:.25s;
+    cursor:pointer;
+    box-shadow:0 4px 12px rgba(0,0,0,.15);
+}
+
+.card:hover{
+    transform:translateY(-5px);
+}
+
+.card h3{
+    font-size:16px;
+    margin-bottom:10px;
 }
 
 .card span{
-    font-size:20px;
+    font-size:30px;
     font-weight:bold;
 }
 
-/* cores agora no padrão Shopee */
-.green{border-left:4px solid #ff6a00;}
-.yellow{border-left:4px solid #ff9f1a;}
-.blue{border-left:4px solid #ff6a00;}
+/* CORES */
 
-/* importador */
+.orange{background:#ff6a00;}
+.green{background:#2ecc71;}
+.yellow{background:#f1c40f;color:#222;}
+.blue{background:#3498db;}
+.purple{background:#9b59b6;}
+.pink{background:#e91e63;}
+.red{background:#e74c3c;}
+.cyan{background:#00bcd4;}
+
+/* IMPORTADOR */
+
 .importador{
-    width:90%;
-    margin:auto;
-    text-align:center;
+    background:#fff;
+    padding:20px;
+    border-radius:12px;
+    box-shadow:0 4px 10px rgba(0,0,0,.08);
+    margin-bottom:20px;
+}
+
+.importador h2{
+    margin-bottom:15px;
 }
 
 textarea{
     width:100%;
-    height:150px;
-    border:1px solid #ff6a00;
-    border-radius:5px;
+    height:170px;
+    resize:vertical;
+    border:2px solid #ff6a00;
+    border-radius:8px;
+    padding:10px;
+    font-size:14px;
 }
 
-/* botão principal */
 button{
-    padding:10px;
-    margin-top:10px;
     background:#ff6a00;
-    color:white;
+    color:#fff;
     border:none;
+    padding:12px 22px;
+    border-radius:8px;
     cursor:pointer;
-    border-radius:5px;
+    margin-top:15px;
+    font-size:15px;
     font-weight:bold;
 }
 
 button:hover{
-    background:#e85f00;
+    background:#e65c00;
 }
 
-/* filtros */
+/* BOTÕES DE FILTRO */
+
 .filtros{
     display:flex;
     flex-wrap:wrap;
-    gap:6px;
-    justify-content:center;
-    margin:10px;
+    gap:10px;
+    margin:25px 0;
 }
 
 .filtros button{
-    background:#ff6a00;
-    color:white;
-    border:none;
-    padding:6px 10px;
-    border-radius:5px;
-    font-size:12px;
-    opacity:0.9;
+    margin:0;
 }
 
-.filtros button:hover{
-    opacity:1;
+/* RESUMO */
+
+.painelResumo{
+    background:#fff;
+    border-radius:12px;
+    padding:20px;
+    margin-bottom:20px;
+    box-shadow:0 4px 10px rgba(0,0,0,.08);
 }
 
-/* tabela */
+#resumo{
+    margin-top:15px;
+    line-height:28px;
+    font-size:15px;
+}
+
+/* GRÁFICO */
+
+.grafico{
+    background:#fff;
+    padding:20px;
+    border-radius:12px;
+    margin-bottom:25px;
+    box-shadow:0 4px 10px rgba(0,0,0,.08);
+}
+
+/* TABELA */
+
+.tabela{
+    overflow:auto;
+    background:#fff;
+    border-radius:12px;
+    box-shadow:0 4px 10px rgba(0,0,0,.08);
+}
+
 table{
     width:100%;
     border-collapse:collapse;
-    background:white;
+    min-width:1600px;
+}
+
+thead{
+    background:#ff6a00;
+    color:#fff;
 }
 
 th,td{
-    padding:8px;
-    border:1px solid #ddd;
-    font-size:12px;
+    padding:12px;
+    border-bottom:1px solid #eee;
+    text-align:left;
+    font-size:13px;
 }
 
-th{
-    background:#ff6a00;
-    color:white;
+tbody tr:hover{
+    background:#fff3eb;
+}
+
+/* RESPONSIVO */
+
+@media(max-width:768px){
+
+.cards{
+grid-template-columns:repeat(2,1fr);
+}
+
+.card span{
+font-size:22px;
+}
+
 }
