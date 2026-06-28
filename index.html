@@ -1,72 +1,152 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Painel de Expedição</title>
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Dashboard Expedição</title>
 
 <link rel="stylesheet" href="style.css">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 </head>
 
 <body>
 
 <header>
-    <h1>Painel de Expedição</h1>
+
+<h1>🚚 Dashboard Expedição</h1>
+
 </header>
 
-<section class="cards">
+<div class="container">
 
-    <div class="card"><h3>Total AT's</h3><span id="totalTasks">0</span></div>
-    <div class="card green"><h3>Expedidas</h3><span id="expedidas">0</span></div>
-    <div class="card yellow"><h3>Em Piso</h3><span id="empiso">0</span></div>
-    <div class="card blue"><h3>Cidades</h3><span id="stations">0</span></div>
+<div class="cards">
 
-</section>
+<div class="card orange">
+<h3>Total AT</h3>
+<span id="totalTasks">0</span>
+</div>
 
-<section class="cards">
+<div class="card green">
+<h3>Expedidas</h3>
+<span id="expedidas">0</span>
+</div>
 
-    <div class="card"><h3>Pedidos</h3><span id="orders">0</span></div>
-    <div class="card"><h3>Motoristas</h3><span id="drivers">0</span></div>
-    <div class="card"><h3>Agências</h3><span id="vehicles">0</span></div>
+<div class="card yellow">
+<h3>Em Piso</h3>
+<span id="empiso">0</span>
+</div>
 
-</section>
+<div class="card blue">
+<h3>Drivers</h3>
+<span id="drivers">0</span>
+</div>
+
+<div class="card purple">
+<h3>Cidades</h3>
+<span id="stations">0</span>
+</div>
+
+<div class="card pink">
+<h3>Agências</h3>
+<span id="vehicles">0</span>
+</div>
+
+<div class="card red">
+<h3>SPR</h3>
+<span id="spr">0</span>
+</div>
+
+<div class="card cyan">
+<h3>Perda SPR</h3>
+<span id="perda">0</span>
+</div>
+
+</div>
 
 <div class="importador">
 
-    <textarea id="dadosPlanilha" rows="10"
-    placeholder="Cole aqui os dados da planilha"></textarea>
+<h2>Importar Dados</h2>
 
-    <button onclick="atualizarDashboard()">Atualizar Dashboard</button>
+<textarea
+id="dadosPlanilha"
+placeholder="Cole aqui os dados copiados da planilha">
+</textarea>
+
+<button onclick="atualizarDashboard()">
+
+Atualizar Dashboard
+
+</button>
 
 </div>
 
 <div id="filtros" class="filtros"></div>
 
-<div class="dashboard">
+<div class="painelResumo">
 
-    <div class="table-box">
-        <table>
-            <thead>
-                <tr>
-                    <th>AT</th>
-                    <th>Corredor</th>
-                    <th>Cidade</th>
-                    <th>Bairros</th>
-                    <th>Agência</th>
-                    <th>Driver</th>
-                    <th>Status</th>
-                    <th>Modal</th>
-                </tr>
-            </thead>
-            <tbody id="tableBody"></tbody>
-        </table>
-    </div>
+<h2 id="tituloResumo">
+
+Resumo
+
+</h2>
+
+<div id="resumo"></div>
+
+</div>
+
+<div class="grafico">
+
+<canvas id="graficoResumo"></canvas>
+
+</div>
+
+<div class="tabela">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Janela</th>
+<th>Status</th>
+<th>AT</th>
+<th>Corredor</th>
+<th>Cidade</th>
+<th>Bairro</th>
+<th>Modal Routing</th>
+<th>SPR Routing</th>
+<th>SPR</th>
+<th>Perda SPR</th>
+<th>Data</th>
+<th>ID Driver</th>
+<th>Driver</th>
+<th>Status Presença</th>
+<th>Modal Driver</th>
+<th>Telefone</th>
+<th>Status Driver</th>
+
+</tr>
+
+</thead>
+
+<tbody id="tableBody">
+
+</tbody>
+
+</table>
+
+</div>
 
 </div>
 
 <script src="app.js"></script>
 
 </body>
+
 </html>
