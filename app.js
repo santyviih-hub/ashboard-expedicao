@@ -1,14 +1,9 @@
 function atualizarDashboard() {
 
-    console.log("BOTÃO FOI CLICADO");
-
     const texto = document.getElementById("dadosPlanilha").value;
 
-    console.log("TEXTO COLADO:");
-    console.log(texto);
-
-    if (!texto || !texto.trim()) {
-        alert("Cole os dados da planilha primeiro.");
+    if (!texto.trim()) {
+        alert("Cole os dados da planilha.");
         return;
     }
 
@@ -27,11 +22,9 @@ function atualizarDashboard() {
 
         const c = linhas[i].split("\t");
 
-        console.log("LINHA:", c);
+        console.log("ARRAY:", c);
 
-        if (!c || c.length < 6) continue;
-
-        totalATs++;
+        if (c.length < 19) continue;
 
         const at = c[2] || "";
         const corredor = c[3] || "";
@@ -41,6 +34,8 @@ function atualizarDashboard() {
         const driver = c[15] || "";
         const status = c[16] || "";
         const modal = c[17] || "";
+
+        totalATs++;
 
         cidades.add(cidade);
         drivers.add(driver);
