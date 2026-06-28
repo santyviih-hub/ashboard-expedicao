@@ -3,7 +3,7 @@ function atualizarDashboard() {
     const texto = document.getElementById("dadosPlanilha").value;
 
     if (!texto.trim()) {
-        alert("Cole os dados da planilha primeiro.");
+        alert("Cole os dados da planilha.");
         return;
     }
 
@@ -12,48 +12,48 @@ function atualizarDashboard() {
     const tabela = document.getElementById("tableBody");
     tabela.innerHTML = "";
 
-    let totalTasks = 0;
-    let expedidas = 0;
-    let empiso = 0;
+    let totalATs = 0;
 
-    const stations = new Set();
+    const cidades = new Set();
     const drivers = new Set();
-    const vehicles = new Set();
+    const agencias = new Set();
 
-    linhas.forEach((linha) => {
+    // Ignora a primeira linha (cabeçalho)
+    for (let i = 1; i < linhas.length; i++) {
 
-        const colunas = linha.split("\t");
+        const c = linhas[i].split("\t");
 
-        if (colunas.length < 6) return;
+        if (c.length < 19) continue;
 
-        totalTasks++;
+        totalATs++;
 
-        const status = (colunas[5] || "").toUpperCase();
+        cidades.add(c[3]);
+        agencias.add(c[13]);
 
-        if (status.includes("EXPEDIDA")) expedidas++;
-        if (status.includes("PISO")) empiso++;
-
-        stations.add(colunas[1]);
-        drivers.add(colunas[2]);
-        vehicles.add(colunas[3]);
+        if (c[15]) {
+            drivers.add(c[15]);
+        }
 
         tabela.innerHTML += `
-            <tr>
-                <td>${colunas[0]}</td>
-                <td>${colunas[1]}</td>
-                <td>${colunas[2]}</td>
-                <td>${colunas[3]}</td>
-                <td>${colunas[4]}</td>
-                <td>${colunas[5]}</td>
-            </tr>
+        <tr>
+            <td>${c[2]}</td>
+            <td>${c[3]}</td>
+            <td>${c[4]}</td>
+            <td>${c[5]}</td>
+            <td>${c[13]}</td>
+            <td>${c[15]}</td>
+            <td>${c[16]}</td>
+            <td>${c[17]}</td>
+        </tr>
         `;
-    });
+    }
 
-    document.getElementById("totalTasks").textContent = totalTasks;
-    document.getElementById("expedidas").textContent = expedidas;
-    document.getElementById("empiso").textContent = empiso;
-    document.getElementById("stations").textContent = stations.size;
+    document.getElementById("totalTasks").textContent = totalATs;
+    document.getElementById("stations").textContent = cidades.size;
     document.getElementById("drivers").textContent = drivers.size;
-    document.getElementById("vehicles").textContent = vehicles.size;
-    document.getElementById("orders").textContent = totalTasks;
+    document.getElementById("vehicles").textContent = agencias.size;
+    document.getElementById("orders").textContent = totalATs;
+
+    document.getElementById("expedidas").textContent = totalATs;
+    document.getElementById("empiso").textContent = 0;
 }
