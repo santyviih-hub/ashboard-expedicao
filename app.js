@@ -7,7 +7,10 @@ function atualizarDashboard() {
         return;
     }
 
-    const linhas = texto.trim().split("\n");
+    const linhas = texto
+        .trim()
+        .split("\n")
+        .filter(l => l.trim().length > 0);
 
     const tabela = document.getElementById("tableBody");
     tabela.innerHTML = "";
@@ -18,13 +21,17 @@ function atualizarDashboard() {
     const drivers = new Set();
     const agencias = new Set();
 
-    for (let i = 1; i < linhas.length; i++) {
+    for (let i = 0; i < linhas.length; i++) {
 
-        const c = linhas[i].split("\t");
+        // 🔥 aqui resolve o problema REAL (tabs OU espaços múltiplos)
+        const c = linhas[i].split(/\t| {2,}/g);
 
-        console.log("ARRAY:", c);
+        console.log("LINHA PROCESSADA:", c);
 
         if (c.length < 19) continue;
+
+        // pula cabeçalho automaticamente
+        if (c[2] === "AT") continue;
 
         const at = c[2] || "";
         const corredor = c[3] || "";
@@ -37,9 +44,9 @@ function atualizarDashboard() {
 
         totalATs++;
 
-        cidades.add(cidade);
-        drivers.add(driver);
-        agencias.add(agencia);
+        if (cidade) cidades.add(cidade);
+        if (driver) drivers.add(driver);
+        if (agencia) agencias.add(agencia);
 
         tabela.innerHTML += `
             <tr>
