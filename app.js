@@ -1,10 +1,24 @@
-// ===============================
-// DASHBOARD EXPEDIÇÃO
-// ===============================
+// =====================================================
+// DASHBOARD EXPEDIÇÃO 2.0
+// Desenvolvido por etapas
+// =====================================================
 
+// Dados da planilha
 let dados = [];
+
+// Dados filtrados
+let dadosFiltrados = [];
+
+// Gráfico
 let grafico = null;
 
+// Coluna atualmente selecionada
+let colunaAtual = "";
+
+// Valor do filtro
+let filtroAtual = "";
+
+// Colunas da planilha
 const COLUNAS = [
     "JANELA",
     "STATUS",
@@ -27,108 +41,177 @@ const COLUNAS = [
     "STATUS DRIVER"
 ];
 
-// ===============================
+// Relação Nome -> Campo
+const MAPA = {
+
+    "JANELA":"janela",
+    "STATUS":"status",
+    "AT":"at",
+    "CORREDOR":"corredor",
+    "CIDADE":"cidade",
+    "BAIRROS":"bairro",
+    "MODAL ROUTING":"modalRouting",
+    "SPR ROUTING":"sprRouting",
+    "SPR":"spr",
+    "PERDA DE SPR":"perdaSPR",
+    "DATA ROTA":"dataRota",
+    "JANELA 2":"janela2",
+    "JANELA 3":"janela3",
+    "ID DRIVER":"idDriver",
+    "DRIVER NAME":"driver",
+    "STATUS PRESENÇA":"presenca",
+    "MODAL DRIVER":"modalDriver",
+    "PHONE":"phone",
+    "STATUS DRIVER":"statusDriver"
+
+};
+// =====================================================
 // IMPORTAR PLANILHA
-// ===============================
+// =====================================================
 
-function atualizarDashboard() {
+function atualizarDashboard(){
 
-    const texto = document.getElementById("dadosPlanilha").value.trim();
+    const texto=document
+        .getElementById("dadosPlanilha")
+        .value
+        .trim();
 
-    if (!texto) {
+    if(texto===""){
+
         alert("Cole os dados da planilha.");
+
         return;
+
     }
 
-    dados = [];
+    dados=[];
 
-    const linhas = texto.split("\n");
+    const linhas=texto.split("\n");
 
-    for (let i = 1; i < linhas.length; i++) {
+    for(let i=1;i<linhas.length;i++){
 
-        const col = linhas[i].split("\t");
+        const c=linhas[i].split("\t");
 
-        if (col.length < 19) continue;
+        if(c.length<19) continue;
 
         dados.push({
-            janela: col[0],
-            status: col[1],
-            at: col[2],
-            corredor: col[3],
-            cidade: col[4],
-            bairro: col[5],
-            modalRouting: col[6],
-            sprRouting: col[7],
-            spr: col[8],
-            perdaSPR: col[9],
-            dataRota: col[10],
-            janela2: col[11],
-            janela3: col[12],
-            idDriver: col[13],
-            driver: col[14],
-            presenca: col[15],
-            modalDriver: col[16],
-            phone: col[17],
-            statusDriver: col[18]
+
+            janela:c[0],
+
+            status:c[1],
+
+            at:c[2],
+
+            corredor:c[3],
+
+            cidade:c[4],
+
+            bairro:c[5],
+
+            modalRouting:c[6],
+
+            sprRouting:c[7],
+
+            spr:c[8],
+
+            perdaSPR:c[9],
+
+            dataRota:c[10],
+
+            janela2:c[11],
+
+            janela3:c[12],
+
+            idDriver:c[13],
+
+            driver:c[14],
+
+            presenca:c[15],
+
+            modalDriver:c[16],
+
+            phone:c[17],
+
+            statusDriver:c[18]
+
         });
 
     }
 
+    dadosFiltrados=[...dados];
+
     atualizarCards();
-    montarTabela(dados);
+
     criarBotoes();
 
+    montarTabela(dadosFiltrados);
+
 }
+// =====================================================
+// CARDS
+// =====================================================
+
 function atualizarCards(){
 
-    document.getElementById("totalTasks").textContent = dados.length;
+    totalTasks.textContent=dados.length;
 
-    document.getElementById("drivers").textContent =
+    drivers.textContent=
         new Set(dados.map(x=>x.driver)).size;
 
-    document.getElementById("stations").textContent =
+    stations.textContent=
         new Set(dados.map(x=>x.cidade)).size;
 
-    document.getElementById("vehicles").textContent =
+    vehicles.textContent=
         new Set(dados.map(x=>x.idDriver)).size;
 
-    document.getElementById("expedidas").textContent =
-        dados.filter(x=>x.status.toUpperCase().includes("EXP")).length;
+    expedidas.textContent=
+        dados.filter(x=>
 
-    document.getElementById("empiso").textContent =
-        dados.filter(x=>x.status.toUpperCase().includes("PISO")).length;
+            x.status
+            .toUpperCase()
+            .includes("EXP")
 
-    document.getElementById("spr").textContent =
+        ).length;
+
+    empiso.textContent=
+        dados.filter(x=>
+
+            x.status
+            .toUpperCase()
+            .includes("PISO")
+
+        ).length;
+
+    spr.textContent=
         dados.filter(x=>x.spr!="").length;
 
-    document.getElementById("perda").textContent =
+    perda.textContent=
         dados.filter(x=>x.perdaSPR!="").length;
 
 }
-function criarBotoes(){
+// =====================================================
+// TABELA
+// =====================================================
 
-    const filtros = document.getElementById("filtros");
-
-    filtros.innerHTML="";
-
-    COLUNAS.forEach(coluna=>{
-
-        const botao=document.createElement("button");
-
-        botao.innerText=coluna;
-
-        botao.onclick=()=>mostrarResumo(coluna);
-
-        filtros.appendChild(botao);
-
-    });
-
-}
 function montarTabela(lista){
 
-    const body=document.getElementById("tableBody");
+    const body = document.getElementById("tableBody");
 
-    body.innerHTML="";
+    body.innerHTML = "";
+
+    if(lista.length===0){
+
+        body.innerHTML=`
+        <tr>
+            <td colspan="19" style="text-align:center;padding:20px;">
+                Nenhum registro encontrado
+            </td>
+        </tr>
+        `;
+
+        return;
+
+    }
 
     lista.forEach(item=>{
 
@@ -158,6 +241,10 @@ function montarTabela(lista){
 
 <td>${item.dataRota}</td>
 
+<td>${item.janela2}</td>
+
+<td>${item.janela3}</td>
+
 <td>${item.idDriver}</td>
 
 <td>${item.driver}</td>
@@ -177,3 +264,70 @@ function montarTabela(lista){
     });
 
 }
+// =====================================================
+// PESQUISA
+// =====================================================
+
+function pesquisar(){
+
+    const texto=document
+    .getElementById("pesquisa")
+    .value
+    .toLowerCase();
+
+    dadosFiltrados=dados.filter(item=>{
+
+        return Object.values(item)
+
+        .join(" ")
+
+        .toLowerCase()
+
+        .includes(texto);
+
+    });
+
+    montarTabela(dadosFiltrados);
+
+}
+// =====================================================
+// BOTÕES DOS RESUMOS
+// =====================================================
+
+function criarBotoes(){
+
+    const filtros=document.getElementById("filtros");
+
+    filtros.innerHTML="";
+
+    COLUNAS.forEach(coluna=>{
+
+        const btn=document.createElement("button");
+
+        btn.innerText=coluna;
+
+        btn.className="botaoResumo";
+
+        btn.onclick=()=>mostrarResumo(coluna);
+
+        filtros.appendChild(btn);
+
+    });
+
+}
+// =====================================================
+// LIMPAR FILTRO
+// =====================================================
+
+function limparFiltros(){
+
+    dadosFiltrados=[...dados];
+
+    document.getElementById("pesquisa").value="";
+
+    montarTabela(dadosFiltrados);
+
+}
+<button onclick="limparFiltros()">
+🧹 Limpar Filtros
+</button>
